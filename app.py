@@ -9,6 +9,7 @@ st.set_page_config(page_title="Spektrofotometri Sederhana", layout="wide")
 st.title("📊 Analisis Spektrofotometri - Beer's Law")
 
 st.markdown("Masukkan minimal 3 data standar (konsentrasi dan absorbansi):")
+st.markdown("🔔 **Catatan:** Gunakan tanda titik (.) untuk mengganti tanda koma (,) dalam penulisan angka desimal.")
 
 # Input data standar dalam bentuk tabel
 num_std = st.number_input("Jumlah data standar", min_value=3, max_value=20, value=6)
