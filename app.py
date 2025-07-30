@@ -13,7 +13,7 @@ st.markdown("Masukkan minimal 3 data standar (konsentrasi dan absorbansi):")
 # Input data standar dalam bentuk tabel
 num_std = st.number_input("Jumlah data standar", min_value=3, max_value=20, value=6)
 
-default_data = [{"Konsentrasi (mg/L)": "", "Absorbansi": ""} for _ in range(num_std)]
+default_data = [{"Konsentrasi (ppm)": "", "Absorbansi": ""} for _ in range(num_std)]
 edited_data = st.data_editor(
     pd.DataFrame(default_data),
     num_rows="dynamic",
