@@ -22,12 +22,12 @@ edited_data = st.data_editor(
     use_container_width=True
 )
 
-# Parsing angka
+# Parsing angka dengan akses kolom yang benar
 std_data = []
-for row in edited_data.itertuples(index=False):
+for i in range(len(edited_data)):
     try:
-        conc = float(row._0)
-        absb = float(row._1)
+        conc = float(edited_data.iloc[i]["Konsentrasi (ppm)"])
+        absb = float(edited_data.iloc[i]["Absorbansi"])
         std_data.append((conc, absb))
     except:
         pass
@@ -52,7 +52,7 @@ if abs(a) < 1e-6:
     st.stop()
 
 # Plot kurva kalibrasi
-fig, ax = plt.subplots(figsize=(5, 3))  # ukuran lebih kecil
+fig, ax = plt.subplots(figsize=(5, 3))
 x_fit = np.linspace(0, df["Konsentrasi"].max() * 1.1, 100)
 y_fit = a * x_fit + b
 
@@ -66,14 +66,14 @@ ax.legend()
 
 st.pyplot(fig)
 
-# Tampilkan parameter regresi
+# Parameter regresi
 st.markdown("### 📌 Parameter Regresi")
 st.write(f"- Slope (a = ε·l): {a:.4f}")
 st.write(f"- Intersep (b): {b:.4f}")
 st.write(f"- Koefisien Korelasi (r): {r_value:.4f}")
 st.write(f"- R-squared: {r_squared:.4f}")
 
-# Interpretasi hasil
+# Interpretasi
 st.markdown("### 📖 Interpretasi")
 if a > 0:
     st.write(f"✅ **Slope (a)** positif ({a:.4f}) menunjukkan hubungan linier positif: konsentrasi meningkat, absorbansi meningkat.")
@@ -133,7 +133,6 @@ for i in range(num_samples):
 
 rsd = math.sqrt(np.mean(selisih_values))
 
-# Tampilkan tabel hasil
 if sample_results:
     st.markdown("#### 📋 Tabel Hasil:")
     st.table(pd.DataFrame(sample_results))
