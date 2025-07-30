@@ -68,7 +68,7 @@ st.pyplot(fig)
 
 # Parameter regresi
 st.markdown("### 📌 Parameter Regresi")
-st.write(f"- Slope (a = ε·l): {a:.4f}")
+st.write(f"- Slope (a): {a:.4f}")
 st.write(f"- Intersep (b): {b:.4f}")
 st.write(f"- Koefisien Korelasi (r): {r_value:.4f}")
 st.write(f"- R-squared: {r_squared:.4f}")
