@@ -102,14 +102,50 @@ edited_samples = st.data_editor(sample_data, num_rows="dynamic", key="samples_ed
 
 # Hitung otomatis konsentrasi
 df_samples = edited_samples.copy()
+conc_values = []
+abs_values = []
 for i in range(len(df_samples)):
     try:
         abs_val = float(df_samples.loc[i, "Absorbansi"])
         conc_val = (abs_val - b) / a if a != 0 else 0
         conc_val = max(conc_val, 0)
         df_samples.loc[i, "Konsentrasi (ppm)"] = round(conc_val, 3)
+        abs_values.append(abs_val)
+        conc_values.append(conc_val)
     except:
         df_samples.loc[i, "Konsentrasi (ppm)"] = ""
 
 st.markdown("#### 📋 Tabel Hasil Sampel")
 st.table(df_samples)
+
+# Hitung RSD dan Horwitz jika data valid
+if conc_values:
+    avg_conc_values = np.mean(conc_values)
+    selisih_values = [(x - avg_conc_values)**2 for x in conc_values]
+    rsd = math.sqrt(np.mean(selisih_values))
+    st.markdown(f"📌 Rata-rata: {avg_conc_values:.2f}")
+    st.markdown(f"📌 %RSD = {rsd:.2f}")
+
+    st.markdown("#### 📉 Evaluasi Presisi (CV Horwitz)")
+    horwitz_results = []
+    horwitz_values = []
+
+    for idx, conc in enumerate(conc_values):
+        C_decimal = conc / 1000000
+        if C_decimal > 0:
+            cv_horwitz = 2 ** (1 - 0.5 * np.log10(C_decimal))
+            horwitz_values.append(cv_horwitz)
+        else:
+            cv_horwitz = np.nan
+        horwitz_results.append({
+            "Sampel": f"S{idx+1}",
+            "Konsentrasi (ppm)": f"{conc:.3f}",
+            "CV Horwitz (%)": f"{cv_horwitz:.2f}" if not np.isnan(cv_horwitz) else "NaN"
+        })
+
+    st.table(pd.DataFrame(horwitz_results))
+
+    horwitz_values_clean = [v for v in horwitz_values if not np.isnan(v)]
+    if horwitz_values_clean:
+        avg_cv_horwitz = np.mean(horwitz_values_clean)
+        st.markdown(f"📌 Rata-rata CV Horwitz: {avg_cv_horwitz:.2f}%")
