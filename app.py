@@ -50,8 +50,8 @@ if abs(a) < 1e-6:
     st.error("Slope terlalu kecil. Data mungkin tidak cukup bervariasi atau tidak linier.")
     st.stop()
 
-# Plot kurva super kecil tapi tetap jelas
-fig, ax = plt.subplots(figsize=(1.3, 1.3))  # ukuran sangat kecil
+# Plot kurva super kecil dengan legend diperkecil
+fig, ax = plt.subplots(figsize=(1.3, 1.3))  # ukuran kecil
 x_fit = np.linspace(0, df["Konsentrasi"].max() * 1.1, 100)
 y_fit = a * x_fit + b
 
@@ -63,7 +63,9 @@ ax.set_ylabel("Absorbansi", fontsize=6)
 ax.set_title("Kurva Kalibrasi", fontsize=7)
 ax.tick_params(axis='both', labelsize=5)
 ax.grid(True, linewidth=0.25, alpha=0.5)
-ax.legend(fontsize=5, markerscale=0.6)
+
+# Legend kecil supaya tidak menutupi kurva
+ax.legend(fontsize=4, markerscale=0.6, loc="best")
 
 st.pyplot(fig)
 
