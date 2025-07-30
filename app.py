@@ -51,7 +51,7 @@ if abs(a) < 1e-6:
     st.stop()
 
 # Plot kurva lebih kecil
-fig, ax = plt.subplots(figsize=(3, 3))
+fig, ax = plt.subplots(figsize=(2.5, 2.5))
 x_fit = np.linspace(0, df["Konsentrasi"].max() * 1.1, 100)
 y_fit = a * x_fit + b
 
