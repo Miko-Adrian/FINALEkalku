@@ -96,7 +96,8 @@ st.markdown("---")
 st.markdown("### 🧪 Hitung Konsentrasi Sampel")
 num_samples = st.number_input("Jumlah sampel", min_value=1, max_value=10, value=6)
 
-sample_data = pd.DataFrame({"Absorbansi": ["" for _ in range(num_samples)], "Konsentrasi (ppm)": ["" for _ in range(num_samples)]})
+# Tabel input hanya absorbansi
+sample_data = pd.DataFrame({"Absorbansi": ["" for _ in range(num_samples)]})
 
 edited_samples = st.data_editor(sample_data, num_rows="dynamic", key="samples_editor", use_container_width=True)
 
@@ -149,3 +150,4 @@ if conc_values:
     if horwitz_values_clean:
         avg_cv_horwitz = np.mean(horwitz_values_clean)
         st.markdown(f"📌 Rata-rata CV Horwitz: {avg_cv_horwitz:.2f}%")
+
