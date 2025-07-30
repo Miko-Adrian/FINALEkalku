@@ -51,7 +51,7 @@ if abs(a) < 1e-6:
     st.stop()
 
 # Plot kurva lebih kecil
-fig, ax = plt.subplots(figsize=(4, 2.5))
+fig, ax = plt.subplots(figsize=(3, 2))
 x_fit = np.linspace(0, df["Konsentrasi"].max() * 1.1, 100)
 y_fit = a * x_fit + b
 
@@ -65,31 +65,12 @@ ax.legend()
 
 st.pyplot(fig)
 
-# Parameter regresi
-st.markdown("### 📌 Parameter Regresi")
-st.write(f"- Slope (a = ε·l): {a:.4f}")
-st.write(f"- Intersep (b): {b:.4f}")
-st.write(f"- Koefisien Korelasi (r): {r_value:.4f}")
-st.write(f"- R-squared: {r_squared:.4f}")
-
-# Interpretasi
-st.markdown("### 📖 Interpretasi")
-if a > 0:
-    st.write(f"✅ **Slope (a)** positif ({a:.4f}) menunjukkan hubungan linier positif.")
-else:
-    st.write(f"⚠️ **Slope (a)** negatif ({a:.4f}) — kemungkinan masalah data.")
-
-if abs(b) < 0.05:
-    st.write(f"✅ **Intersep (b)** kecil ({b:.4f}) sesuai teori Beer's Law.")
-else:
-    st.write(f"ℹ️ **Intersep (b)** ({b:.4f}) mungkin ada error sistematis.")
-
-if r_value > 0.995:
-    st.write(f"✅ **Koefisien Korelasi (r)** sangat tinggi ({r_value:.4f}).")
-elif r_value > 0.98:
-    st.write(f"⚠️ **Koefisien Korelasi (r)** cukup baik ({r_value:.4f}).")
-else:
-    st.write(f"❌ **Koefisien Korelasi (r)** rendah ({r_value:.4f}).")
+# Parameter regresi + interpretasi singkat
+st.markdown("### 📌 Parameter Regresi & Interpretasi")
+st.write(f"Slope (a = ε·l): {a:.4f} — {'Positif, hubungan linier sesuai teori.' if a>0 else 'Negatif, kemungkinan masalah data.'}")
+st.write(f"Intersep (b): {b:.4f} — {'Kecil, sesuai teori.' if abs(b)<0.05 else 'Agak besar, kemungkinan error sistematis.'}")
+st.write(f"Koefisien Korelasi (r): {r_value:.4f} — {'Sangat baik.' if r_value>0.995 else ('Cukup baik.' if r_value>0.98 else 'Kurang baik.')}")
+st.write(f"R-squared: {r_squared:.4f} — {'Model menjelaskan variasi data dengan baik.' if r_squared>0.98 else 'Model kurang menjelaskan variasi data.'}")
 
 # Input sampel via tabel
 st.markdown("---")
