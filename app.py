@@ -50,18 +50,19 @@ if abs(a) < 1e-6:
     st.error("Slope terlalu kecil. Data mungkin tidak cukup bervariasi atau tidak linier.")
     st.stop()
 
-# Plot kurva lebih kecil
-fig, ax = plt.subplots(figsize=(2, 2))
+# Plot kurva lebih kecil tapi jelas
+fig, ax = plt.subplots(figsize=(1.8, 1.8))  # ukuran kecil tapi proporsional
 x_fit = np.linspace(0, df["Konsentrasi"].max() * 1.1, 100)
 y_fit = a * x_fit + b
 
-ax.scatter(df["Konsentrasi"], df["Absorbansi"], label="Data Standar", color="blue")
-ax.plot(x_fit, y_fit, color="red", linestyle="--", label=f"y = {a:.3f}x + {b:.3f}")
-ax.set_xlabel("Konsentrasi (ppm)")
-ax.set_ylabel("Absorbansi")
-ax.set_title("Kurva Kalibrasi")
-ax.grid(True)
-ax.legend()
+ax.scatter(df["Konsentrasi"], df["Absorbansi"], s=12, color="blue", edgecolor="black", linewidth=0.3, label="Data Standar")
+ax.plot(x_fit, y_fit, color="red", linestyle="--", linewidth=0.8, label=f"y = {a:.3f}x + {b:.3f}")
+ax.set_xlabel("Konsentrasi (ppm)", fontsize=7)
+ax.set_ylabel("Absorbansi", fontsize=7)
+ax.set_title("Kurva Kalibrasi", fontsize=8)
+ax.tick_params(axis='both', labelsize=6)
+ax.grid(True, linewidth=0.3, alpha=0.6)
+ax.legend(fontsize=6, markerscale=0.7)
 
 st.pyplot(fig)
 
@@ -131,4 +132,3 @@ if conc_values:
     if horwitz_values_clean:
         avg_cv_horwitz = np.mean(horwitz_values_clean)
         st.markdown(f"📌 Rata-rata CV Horwitz: {avg_cv_horwitz:.2f}%")
-
