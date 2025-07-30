@@ -71,8 +71,8 @@ st.pyplot(fig)
 
 # Parameter regresi + interpretasi singkat
 st.markdown("### 📌 Parameter Regresi & Interpretasi")
-st.write(f"📖 Interpretasi slope: Setiap kenaikan 1 ppm konsentrasi, absorbansi bertambah sekitar {a:.4f} satuan.")
-st.write(f"📖 Interpretasi intersep: Saat konsentrasi 0 ppm, absorbansi awal diperkirakan {b:.4f} (bisa mencerminkan noise atau error sistematis).")
+st.write(f"📖 Interpretasi slope (a): Setiap kenaikan 1 ppm konsentrasi, absorbansi bertambah sekitar {a:.4f} satuan.")
+st.write(f"📖 Interpretasi intersep (b): Saat konsentrasi 0 ppm, absorbansi awal diperkirakan {b:.4f} (bisa mencerminkan noise atau error sistematis).")
 st.write(f"📖 Interpretasi r: Nilai r {r_value:.4f} menunjukkan {'hubungan yang sangat kuat' if r_value>0.995 else ('hubungan yang kuat' if r_value>0.98 else 'hubungan yang lemah')} antara konsentrasi dan absorbansi.")
 st.write(f"R-squared: {r_squared:.4f} — {'Model menjelaskan variasi data dengan baik.' if r_squared>0.98 else 'Model kurang menjelaskan variasi data.'}")
 
